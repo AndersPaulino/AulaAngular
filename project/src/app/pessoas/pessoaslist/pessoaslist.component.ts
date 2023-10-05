@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-
+import { Component, inject } from '@angular/core';
+//import { NgModel } from '@angular/forms';
+import { NgModel } from '@angular/forms';
 import { Pessoa } from 'src/app/model/pessoa.model';
 
 @Component({
@@ -8,6 +9,8 @@ import { Pessoa } from 'src/app/model/pessoa.model';
   styleUrls: ['./pessoaslist.component.scss']
 })
 export class PessoaslistComponent {
+  modalService = inject(NgModel);
+
   pessoa: Pessoa[];
 
   exibirIdade: 'todas' | 'menor' | 'maior' = 'todas';
@@ -28,5 +31,9 @@ export class PessoaslistComponent {
   }
   alterarCondicaoExibicao(condicao: 'todas' | 'menor' | 'maior'): void {
     this.exibirIdade = condicao;
+  }
+
+  abrirModal(content: any) {
+    this.modalService.open(content, { size: 'lg' });
   }
 }

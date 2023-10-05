@@ -19,6 +19,21 @@
 <button (click)="alterarCondicaoExibicao('maior')">Exibir Maior que 30</button>
 <button routerLink="/admin/pessoas/novo">Cadastrar</button>
 <button routerLink="/admin/pessoas/editar/:1">Atualizar</button>
+<input (click)="abrirModal(content)" type="button" value="Nova Pessoa" />
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Modal title</h4>
+    <button type="button" class="btn-close" aria-label="Close"(click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <p>CONTEÚDO AQUIp>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light"(click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>
+
 <style class="css">
   body {
       font-family: 'Arial', sans-serif;
