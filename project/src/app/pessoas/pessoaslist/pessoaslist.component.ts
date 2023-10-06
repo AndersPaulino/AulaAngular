@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-
+import { Component, inject } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Pessoa } from 'src/app/model/pessoa.model';
 
 @Component({
@@ -8,6 +8,8 @@ import { Pessoa } from 'src/app/model/pessoa.model';
   styleUrls: ['./pessoaslist.component.scss']
 })
 export class PessoaslistComponent {
+  modalService = inject(NgbModal);
+
   pessoa: Pessoa[];
 
   exibirIdade: 'todas' | 'menor' | 'maior' = 'todas';
@@ -28,5 +30,14 @@ export class PessoaslistComponent {
   }
   alterarCondicaoExibicao(condicao: 'todas' | 'menor' | 'maior'): void {
     this.exibirIdade = condicao;
+  }
+
+  abrirModal(content: any) {
+    this.modalService.open(content, { size: 'lg' });
+  }
+
+  addNaLista(pessoa: Pessoa){
+    this.pessoa.push(pessoa);
+    this.modalService.dismissAll();
   }
 }

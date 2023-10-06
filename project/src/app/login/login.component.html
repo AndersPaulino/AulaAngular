@@ -1,18 +1,17 @@
 <form>
     <input
-        id="email"
         type="text"
-        name="email"
-        placeholder="Digite seu E-mail..."
+        name="login"
+        placeholder="Digite seu Login..."
+        [(ngModel)]="usuario.login"
     />
-    <i class="fa fa-eye" aria-hidden="true"></i>
     <input
-        id="password"
         type="password"
         name="senha"
         placeholder="Digite sua Senha..."
+        [(ngModel)]="usuario.senha"
     />
-    <button routerLink="/admin">Login</button>
+    <button (click)="logar()">Login</button>
 </form>
 <style class="css">
     form {
