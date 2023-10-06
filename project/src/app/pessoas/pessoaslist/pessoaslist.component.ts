@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
-//import { NgModel } from '@angular/forms';
-import { NgModel } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Pessoa } from 'src/app/model/pessoa.model';
 
 @Component({
@@ -9,7 +8,7 @@ import { Pessoa } from 'src/app/model/pessoa.model';
   styleUrls: ['./pessoaslist.component.scss']
 })
 export class PessoaslistComponent {
-  modalService = inject(NgModel);
+  modalService = inject(NgbModal);
 
   pessoa: Pessoa[];
 
@@ -35,5 +34,10 @@ export class PessoaslistComponent {
 
   abrirModal(content: any) {
     this.modalService.open(content, { size: 'lg' });
+  }
+
+  addNaLista(pessoa: Pessoa){
+    this.pessoa.push(pessoa);
+    this.modalService.dismissAll();
   }
 }
