@@ -20,7 +20,7 @@ export class LoginComponent {
     }if(this.usuario.login != "admin" && this.usuario.senha != "admin"){
       alert("Usuário e senha incorretos!")
     }if(this.usuario.login == "admin" && this.usuario.senha == "admin"){
-      this.router.navigate(["/admin/pessoas"]);
+      this.router.navigate(["/admin"]);
     }
   }  
 }

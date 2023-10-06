@@ -14,8 +14,23 @@
       </tr>
     </tbody>
 </table>
-<button routerLink="/admin/livros/novo">Cadastrar</button>
 <button routerLink="/admin/livros/editar/:1">Atualizar</button>
+<button routerLink="/admin/livros/novo">Cadastrar</button>
+<input (click)="abrirModalLivro(content)" type="button" value="Novo Livro" />
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Modal title</h4>
+    <button type="button" class="btn-close" aria-label="Close"(click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <app-livrosdetails (retorno)="addNaLista($event)"></app-livrosdetails>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light custom-button" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>
+
 <style class="css">
     body {
         font-family: 'Arial', sans-serif;
@@ -54,4 +69,38 @@
     color: #fff;
     border: 1px solid #fff;
     }
+
+    input {
+    height: 25px;
+    width: 10%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin: 20px;
+    border: 1px solid #ddd;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    border-radius: 10px;
+    }
+
+    input:hover{
+    background-color: #6499E9;
+    color: #fff;
+    border: 1px solid #fff;
+    }
+
+    .custom-button {
+    height: 35px;
+    width: 10%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    border-radius: 10px;
+  }
+
+  .custom-button:hover {
+    background-color: #6499E9;
+    color: #fff;
+    border: 1px solid #fff;
+  }
  </style>
