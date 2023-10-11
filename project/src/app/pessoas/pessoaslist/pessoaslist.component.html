@@ -1,6 +1,7 @@
 <table>
   <thead>
     <tr>
+      <th>Id</th>
       <th>Nome</th>
       <th>Idade</th>
     </tr>
@@ -8,8 +9,10 @@
   <tbody>
     <tr *ngFor="let pessoa of pessoa">
       <ng-container *ngIf="exibirIdade === 'todas' || (exibirIdade === 'menor' && pessoa.idade < 30) || (exibirIdade === 'maior' && pessoa.idade > 30)">
+        <td>{{ pessoa.id}}</td>
         <td>{{ pessoa.nome }}</td>
         <td>{{ pessoa.idade }}</td>
+        <button class="editar" (click)="abrirModal(contentEditar)">Editar</button>
       </ng-container>
     </tr>
   </tbody>
@@ -27,6 +30,19 @@
   </div>
   <div class="modal-body">
     <app-pessoasdetails (retorno)="addNaLista($event)"></app-pessoasdetails>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light custom-button"(click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>
+
+<ng-template #contentEditar let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Modal Editar</h4>
+    <button type="button" class="btn-close" aria-label="Close"(click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <app-pessoasdetails (retorno)="addNaListaEditar($event)"></app-pessoasdetails>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-light custom-button"(click)="modal.close('Close click')">Close</button>
@@ -52,6 +68,12 @@
 
   th {
   background-color: #f2f2f2;
+  }
+
+  .editar{
+    position: absolute;
+    right: 50px;
+    margin-top: 7px;
   }
 
   button {

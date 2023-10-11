@@ -10,11 +10,13 @@ import { Pessoa } from 'src/app/model/pessoa.model';
 export class PessoasdetailsComponent {
  route = inject(ActivatedRoute);
  logData: any;
+
+//  @Input() pessoa1:Pessoa[] = [];
  
- pessoa: Pessoa = new Pessoa("",0); 
+ @Input() pessoa: Pessoa = new Pessoa();
 
  @Output() retorno = new EventEmitter<Pessoa>();
-
+ 
  constructor(){
     let id = this.route.snapshot.paramMap.get(`id`);
 
@@ -27,6 +29,7 @@ export class PessoasdetailsComponent {
     }
  }
  salvar(){
+
   this.retorno.emit(this.pessoa);
  }
 }

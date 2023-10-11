@@ -1,4 +1,5 @@
-import { Component, inject } from '@angular/core';
+import { Input } from '@angular/core';
+import { Component, inject} from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Pessoa } from 'src/app/model/pessoa.model';
 
@@ -10,23 +11,11 @@ import { Pessoa } from 'src/app/model/pessoa.model';
 export class PessoaslistComponent {
   modalService = inject(NgbModal);
 
-  pessoa: Pessoa[];
+  pessoa: Pessoa[] = [];
 
   exibirIdade: 'todas' | 'menor' | 'maior' = 'todas';
 
   constructor(){
-    this.pessoa = [
-      new Pessoa('Anderson', 32),
-      new Pessoa('Andŕe', 32),
-      new Pessoa('Silvio', 25),
-      new Pessoa('Evellyn', 20),
-      new Pessoa('Diego', 45),
-      new Pessoa('Diogo', 25),
-      new Pessoa('Rafael', 25),
-      new Pessoa('Eduardo', 25),
-      new Pessoa('Sabrina', 25),
-      new Pessoa('Ana', 25),
-    ];
   }
   alterarCondicaoExibicao(condicao: 'todas' | 'menor' | 'maior'): void {
     this.exibirIdade = condicao;
@@ -37,7 +26,20 @@ export class PessoaslistComponent {
   }
 
   addNaLista(pessoa: Pessoa){
+    pessoa.id=this.pessoa.length+1;
     this.pessoa.push(pessoa);
     this.modalService.dismissAll();
   }
+  addNaListaEditar(pessoa: Pessoa) {
+    const index = this.pessoa.findIndex(p => p.id === pessoa.id);
+
+    if (index !== -1) {
+      this.pessoa[index] = pessoa;
+      this.modalService.dismissAll();
+    } else {
+      this.pessoa.push(pessoa);
+      this.modalService.dismissAll();
+    }
+  }
+  
 }
