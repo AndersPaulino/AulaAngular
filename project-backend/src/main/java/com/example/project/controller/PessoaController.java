@@ -31,7 +31,7 @@ public class PessoaController {
     @GetMapping
     public ResponseEntity<List<PessoaDTO>> findAll(){
         List<PessoaDTO> pessoaDTOS = pessoaService.findAll();
-        return ResponseEntity.ok(pessoaDTOS)
+        return ResponseEntity.ok(pessoaDTOS);
     }
 
     @PostMapping
@@ -47,7 +47,7 @@ public class PessoaController {
     public ResponseEntity<String> atualizar(@PathVariable @NotNull Long id, @RequestBody Pessoa pessoa){
         try{
             pessoaService.atualizar(id, pessoa);
-            return ResponseEntity.ok().body("Registro cadastrado com sucesso!");
+            return ResponseEntity.ok().body("Registro atualizado com sucesso!");
         } catch (IllegalArgumentException e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }

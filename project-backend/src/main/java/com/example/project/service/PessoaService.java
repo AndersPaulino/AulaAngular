@@ -54,10 +54,18 @@ public class PessoaService {
 
         if (pessoaExistenteOptional.isPresent()) {
             Pessoa pessoaExistente = pessoaExistenteOptional.get();
-            pessoaExistente.setNomePessoa(pessoa.getNomePessoa());
+
+            if (pessoa.getNomePessoa() != null) {
+                pessoaExistente.setNomePessoa(pessoa.getNomePessoa());
+            }
+
+            if (pessoa.getNomePessoa() != null) {
+                pessoaExistente.setIdade(pessoa.getIdade());
+            }
+
             pessoaRepository.save(pessoaExistente);
         } else {
-            throw new IllegalArgumentException("ID de estoque inválido!");
+            throw new IllegalArgumentException("ID Inválido!");
         }
     }
 
