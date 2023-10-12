@@ -1,9 +1,11 @@
 export class Pessoa {
-    nome: string;
-    idade: number;
+    id!: number;
+    nomePessoa!: string;
+    idade!: number;
   
-    constructor(nome: string, idade: number) {
-      this.nome = nome;
-      this.idade = idade;
-    }
+    // constructor(id: number, nome: string, idade: number) {
+    //   this.id = id;
+    //   this.nome = nome;
+    //   this.idade = idade;
+    // }
   }
