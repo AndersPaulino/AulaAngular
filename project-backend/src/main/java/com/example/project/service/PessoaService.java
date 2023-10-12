@@ -42,13 +42,13 @@ public class PessoaService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void cadastrar(Pessoa pessoa){
+    public Pessoa cadastrar(Pessoa pessoa){
         validarPessoa(pessoa);
-        pessoaRepository.save(pessoa);
+        return pessoaRepository.save(pessoa);
     }
 
     @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRES_NEW)
-    public void atualizar(Long id, Pessoa pessoa) {
+    public Pessoa atualizar(Long id, Pessoa pessoa) {
         validarPessoa(pessoa);
         Optional<Pessoa> pessoaExistenteOptional = pessoaRepository.findById(id);
 
@@ -63,7 +63,7 @@ public class PessoaService {
                 pessoaExistente.setIdade(pessoa.getIdade());
             }
 
-            pessoaRepository.save(pessoaExistente);
+            return pessoaRepository.save(pessoaExistente);
         } else {
             throw new IllegalArgumentException("ID Inválido!");
         }
