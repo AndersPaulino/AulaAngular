@@ -10,9 +10,12 @@
     <tr *ngFor="let pessoa of pessoa">
       <ng-container *ngIf="exibirIdade === 'todas' || (exibirIdade === 'menor' && pessoa.idade < 30) || (exibirIdade === 'maior' && pessoa.idade > 30)">
         <td>{{ pessoa.id}}</td>
-        <td>{{ pessoa.nome }}</td>
+        <td>{{ pessoa.nomePessoa }}</td>
         <td>{{ pessoa.idade }}</td>
-        <button class="editar" (click)="abrirModal(contentEditar)">Editar</button>
+        <div class="bots">
+        <button class="editar" (click)="abrirModalEditar(content, pessoa)">Editar</button>
+        <button class="x" (click)="deletar(pessoa.id)">Excluir</button>
+        </div>
       </ng-container>
     </tr>
   </tbody>
@@ -29,25 +32,13 @@
     <button type="button" class="btn-close" aria-label="Close"(click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">
-    <app-pessoasdetails (retorno)="addNaLista($event)"></app-pessoasdetails>
+    <app-pessoasdetails [pessoa]="pessoaSelecionadaParaEdicao" (retorno)="atualizarLista($event)" ></app-pessoasdetails>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-light custom-button"(click)="modal.close('Close click')">Close</button>
   </div>
 </ng-template>
 
-<ng-template #contentEditar let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title">Modal Editar</h4>
-    <button type="button" class="btn-close" aria-label="Close"(click)="modal.dismiss('Cross click')"></button>
-  </div>
-  <div class="modal-body">
-    <app-pessoasdetails (retorno)="addNaListaEditar($event)"></app-pessoasdetails>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-light custom-button"(click)="modal.close('Close click')">Close</button>
-  </div>
-</ng-template>
 
 <style class="css">
   body {
@@ -70,12 +61,17 @@
   background-color: #f2f2f2;
   }
 
-  .editar{
-    position: absolute;
-    right: 50px;
-    margin-top: 7px;
-  }
 
+  div .bots{
+    position: absolute;
+    display: flex;
+    justify-content: space-between; /* Isso alinha os botões à esquerda e à direita */
+    align-items: center; /* Isso centraliza os botões verticalmente */
+    width: 200px; /* A largura desejada para a div */
+  }
+  .x:hover{
+    background-color: rgb(241, 59, 59);
+  }
   button {
   height: 25px;
   width: 10%;
