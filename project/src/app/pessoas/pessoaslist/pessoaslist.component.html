@@ -4,6 +4,7 @@
       <th>Id</th>
       <th>Nome</th>
       <th>Idade</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -11,11 +12,13 @@
       <ng-container *ngIf="exibirIdade === 'todas' || (exibirIdade === 'menor' && pessoa.idade < 30) || (exibirIdade === 'maior' && pessoa.idade > 30)">
         <td>{{ pessoa.id}}</td>
         <td>{{ pessoa.nomePessoa }}</td>
-        <td>{{ pessoa.idade }}</td>
+        <td>{{ pessoa.idade }}
+        <td>
         <div class="bots">
         <button class="editar" (click)="abrirModalEditar(content, pessoa)">Editar</button>
         <button class="x" (click)="deletar(pessoa.id)">Excluir</button>
         </div>
+        </td>
       </ng-container>
     </tr>
   </tbody>

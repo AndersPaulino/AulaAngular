@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Output, inject } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Carro } from 'src/app/model/carro.model';
+import { CarroService } from 'src/app/services/carro.service';
 
 @Component({
   selector: 'app-carrosdetails',
@@ -9,23 +10,38 @@ import { Carro } from 'src/app/model/carro.model';
 })
 export class CarrosdetailsComponent {
   route = inject(ActivatedRoute);
-  carro: Carro = new Carro("",0);
   logData: any;
 
-  @Output() retorno = new EventEmitter<Carro>();
+  @Input() carro: Carro = new Carro();
+  
+  @Output() retorno = new EventEmitter<string>();
+
+  carroService = inject(CarroService);
 
   constructor(){
-    let id = this.route.snapshot.paramMap.get(`id`);
-
-    if(id){
-      this.logData = {nome: "Celta", ano: 2010}
-      console.log("Celta", 2010);
-    }else{
-      this.logData = {nome: "Novo Carro", ano: 2024}
-      console.log("Novo Carro",2024);
+   
+  }
+  salvar() {
+    if (this.carro.id > 0) {
+      this.carroService.update(this.carro.id, this.carro).subscribe({
+        next: livro => { // QUANDO DÁ CERTO
+          this.retorno.emit("Alterado com sucesso!");
+        },
+        error: erro => { // QUANDO DÁ ERRO
+          alert('Exemplo de tratamento de erro/exception! Observe o erro no console!');
+          console.error(erro);
+        }
+      });
+    } else {
+      this.carroService.save(this.carro).subscribe({
+        next: livro => { // QUANDO DÁ CERTO
+          this.retorno.emit("Salvo com sucesso!");
+        },
+        error: erro => { // QUANDO DÁ ERRO
+          alert('Exemplo de tratamento de erro/exception! Observe o erro no console!');
+          console.error(erro);
+        }
+      });
     }
   }
-  salvar(){
-    this.retorno.emit(this.carro);
-   }
 }

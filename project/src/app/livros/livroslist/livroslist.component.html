@@ -1,15 +1,22 @@
 <table>
     <thead>
       <tr>
+        <th>Id</th>
         <th>Autor</th>
         <th>Titulo</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let livro of livro">
         <ng-container>
-          <td>{{ livro.autor }}</td>
+          <td>{{ livro.id}}</td>
+          <td>{{ livro.nomeLivro }}</td>
           <td>{{ livro.titulo }}</td>
+          <td>
+          <button class="editar" (click)="abrirModalEditar(content, livro)">Editar</button>
+          <button class="x" (click)="deletar(livro.id)">Excluir</button>
+          </td>
         </ng-container>
       </tr>
     </tbody>
@@ -24,7 +31,7 @@
     <button type="button" class="btn-close" aria-label="Close"(click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">
-    <app-livrosdetails (retorno)="addNaLista($event)"></app-livrosdetails>
+    <app-livrosdetails [livro]="livroSelecionadoParaEdicao" (retorno)="atualizarLista($event)"></app-livrosdetails>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-light custom-button" (click)="modal.close('Close click')">Close</button>
@@ -62,6 +69,17 @@
     font-family: 'Arial', sans-serif;
     text-align: center;
     border-radius: 10px;
+    }
+
+    div .bots{
+      position: absolute;
+      display: flex;
+      justify-content: space-between; /* Isso alinha os botões à esquerda e à direita */
+      align-items: center; /* Isso centraliza os botões verticalmente */
+      width: 200px; /* A largura desejada para a div */
+    }
+    .x:hover{
+      background-color: rgb(241, 59, 59);
     }
 
     button:hover{

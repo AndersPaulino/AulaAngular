@@ -1,9 +1,5 @@
 export class Livro{
-    autor: string;
-    titulo: string;
-
-    constructor(autor:string, titulo:string){
-        this.autor = autor;
-        this.titulo = titulo;
-    }
+    id!: number;
+    nomeLivro!: string;
+    titulo!: string;
 }
