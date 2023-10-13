@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { Carro } from 'src/app/model/carro.model';
+import { CarroService } from 'src/app/services/carro.service';
 
 @Component({
   selector: 'app-carroslist',
@@ -11,22 +12,61 @@ import { Carro } from 'src/app/model/carro.model';
 export class CarroslistComponent {
   modalSerivce = inject(NgbModal);
 
-  carro: Carro [];
+  carroSelecionadoParaEdicao: Carro = new Carro();
+  indiceSelecionadoParaEdicao!: number;
+
+  carro: Carro [] = [];
+
+  carroService = inject(CarroService);
 
   constructor(){
-    this.carro = [
-      new Carro('Focus', 1997),
-      new Carro('Gol', 1995),
-      new Carro('Sandero', 2008),
-      new Carro('Parati', 1995),
-    ]
+    this.listAll();
   }
+  listAll() {
+
+    this.carroService.listAll().subscribe({
+      next: lista => { // QUANDO DÁ CERTO
+        this.carro = lista;
+      },
+      error: erro => { // QUANDO DÁ ERRO
+        alert('Observe o erro no console!');
+        console.error(erro);
+      }
+    });
+  }
+
+  exemploErro() {
+
+    this.carroService.exemploErro().subscribe({
+      next: lista => { // QUANDO DÁ CERTO
+        this.carro = lista;
+      },
+      error: erro => { // QUANDO DÁ ERRO
+        alert('Observe o erro no console!');
+        console.error(erro);
+      }
+    });
+
+  }
+
   abrirModalCarro(content: any) {
     this.modalSerivce.open(content, { size: 'lg' });
   }
+  abrirModalEditar(content: any, carro: Carro) {
+    this.carroSelecionadoParaEdicao = Object.assign({},carro);
 
-  addNaLista(carro: Carro){
-    this.carro.push(carro);
+    this.modalSerivce.open(content, { size: 'lg' });
+  }
+
+  atualizarLista(mensagem: string){
+    alert(mensagem);
     this.modalSerivce.dismissAll();
+    this.listAll();
+  }
+
+  deletar(id: number) {
+    this.carroService.delete(id).subscribe(() => this.listAll());
+    alert("Deletado com sucesso!");
+    this.listAll();
   }
 }
